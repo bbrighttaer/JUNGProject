@@ -79,22 +79,38 @@ public class DataMining {
 
     private void directedGraphMining(String graphTitle) {
         DirectedGraph directedGraph = (DirectedGraph) graph;
-        //System.out.println(directedGraph.toString());
+        System.out.println(directedGraph.toString());
+        long start = 0L;
 
         //General information about graph
-        //generalInfo(directedGraph);
+        start = System.nanoTime();
+        generalInfo(directedGraph);
+        System.out.println("General Info Execution time: "+(System.nanoTime() - start)*1e-9);
 
         //Ranking
+        start = System.nanoTime();
         rankingAnalysis(directedGraph);
+        System.out.println("Ranking Execution time: "+(System.nanoTime() - start)*1e-9);
 
         //Clustering
+        start = System.nanoTime();
+        clustering(graph);
+        System.out.println("Clustering Execution time: "+(System.nanoTime() - start)*1e-9);
 
         //Topology
+        start = System.nanoTime();
+        topologyAnalysis(graph);
+        System.out.println("Topology Execution time: "+(System.nanoTime() - start)*1e-9);
 
         //Randomly Generated sub-graphs or networks
+        start = System.nanoTime();
+        randomlyGeneratedGraphs(graph);
+        System.out.println("Random Graph Execution time: "+(System.nanoTime() - start)*1e-9);
 
         //display
-        //visualizeGraph();
+        start = System.nanoTime();
+        visualizeGraph(graph, graphTitle);
+        System.out.println("Graph Display Execution time: "+(System.nanoTime() - start)*1e-9);
     }
 
     private void generalInfo(Graph graph) {
@@ -168,13 +184,13 @@ public class DataMining {
     private void clustering(Graph graph) {
         //EdgeBetweenness
         System.out.println("------ EdgeBetweenness Clustering ----");
-        EdgeBetweennessClusterer betweennessClusterer = new EdgeBetweennessClusterer(100);
+        EdgeBetweennessClusterer betweennessClusterer = new EdgeBetweennessClusterer(200);
         Object[] clusters = betweennessClusterer.apply(graph).toArray();
         System.out.println("Number of clusters: " + clusters.length);
         for (int i = 0; i < clusters.length; i++) {
             System.out.println(String.format("---- Cluster %d ---", (i + 1)));
             Set cluster = (Set) clusters[i];
-            System.out.println(Arrays.asList(cluster.toArray()));
+            System.out.println(Arrays.asList(cluster.toArray())+", size: "+cluster.size());
         }
 
         //WCC

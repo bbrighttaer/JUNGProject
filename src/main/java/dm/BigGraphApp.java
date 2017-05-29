@@ -11,9 +11,9 @@ import java.io.IOException;
 public class BigGraphApp {
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         GraphLoader graphLoader = new GraphLoader("airlines.graphml");
-        DataMining dataMining = new DataMining(DataMining.GraphType.undirected, graphLoader.getUnDirectedGraph());
+        DataMining dataMining = new DataMining(DataMining.GraphType.directed, graphLoader.getDirectedGraph());
         long start = System.nanoTime();
-        dataMining.mineBigGraph("Airline BigGraph");
+        dataMining.mineBigGraph("Airport Dataset");
         System.out.println("Execution time: "+(System.nanoTime() - start)*1e-9);
     }
 }
